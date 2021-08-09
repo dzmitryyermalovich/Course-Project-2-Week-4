@@ -1,0 +1,10 @@
+NEI <- readRDS("C:\\Education\\R programming\\exdata_data_NEI_data\\summarySCC_PM25.rds")
+SCC <- readRDS("C:\\Education\\R programming\\exdata_data_NEI_data\\Source_Classification_Code.rds")
+
+png(filename = "plot3.png")
+library("ggplot2")
+Baltimore_City<-subset(NEI,fips == "24510")
+agg<-aggregate(Baltimore_City$Emissions,by=list(Baltimore_City$year,Baltimore_City$type),FUN = sum)
+names(agg)<-c("year","type","total_emissions")
+qplot(year,total_emissions,data=agg,color=type,geom="line",main="Total Emissions in Baltimore City group by type")
+dev.off()
