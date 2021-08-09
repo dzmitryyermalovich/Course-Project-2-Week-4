@@ -1,0 +1,10 @@
+NEI <- readRDS("C:\\Education\\R programming\\exdata_data_NEI_data\\summarySCC_PM25.rds")
+SCC <- readRDS("C:\\Education\\R programming\\exdata_data_NEI_data\\Source_Classification_Code.rds")
+
+png(filename = "plot6.png")
+Baltimore_LA<-subset(NEI,fips == "24510" | fips == "06037" & type =="ON-ROAD")
+agg_BC_LA<-aggregate(Baltimore_LA$Emissions,by=list(Baltimore_LA$year,Baltimore_LA$fips),FUN=sum)
+names(agg_BC_LA)<-c("year","city","total_emissions")
+library(ggplot2)
+qplot(year,total_emissions,data=agg_BC_LA,color=city,geom="line")
+dev.off()
